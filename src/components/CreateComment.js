@@ -1,19 +1,19 @@
 import React, {Component} from 'react';
 
 class CreateComment extends Component {
-    constructor(props){
-        super(props);
 
-        this.state = {
-            newComment: " "
-        };
+    state = {
+        newComment: ""
+    };
 
-        this.onChangeMessage = this.onChangeMessage.bind(this);
-    }
+    readComment = (event) => {
+        this.setState({newComment: event.target.value});
+    };
 
-    onChangeMessage(e) {
-        this.setState({newComment: e.target.value});
-    }
+    pushCommentToParent = () => {
+        this.props.action(this.state.newComment);
+        this.setState({newComment: ""});
+    };
 
     render() {
         return (
@@ -26,12 +26,13 @@ class CreateComment extends Component {
                 <div className="media-content">
                     <div className="field">
                         <p className="control">
-                            <textarea onChange={this.onChangeMessage} className="textarea" placeholder="Add a comment..."/>
+                            <textarea value={this.state.newComment} onChange={this.readComment} className="textarea"
+                                      placeholder="Add a comment..."/>
                         </p>
                     </div>
                     <div className="field">
                         <p className="control">
-                            <button className="button">Post comment</button>
+                            <button onClick={this.pushCommentToParent} className="button">Post comment</button>
                         </p>
                     </div>
                 </div>

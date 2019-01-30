@@ -4,18 +4,12 @@ import CreateComment from './CreateComment';
 
 class Thread extends Component {
 
-    constructor(props) {
-        super(props);
-
-        this.pushNewComment = this.pushNewComment.bind(this);
-
-        this.state = {
-            name: "",
-            message: "",
-            imageUrl: "",
-            comments: []
-        }
-    }
+    state = {
+        name: "",
+        message: "",
+        imageUrl: "",
+        comments: []
+    };
 
     componentDidMount() {
         this.setState(
@@ -39,9 +33,20 @@ class Thread extends Component {
         )
     }
 
-    pushNewComment() {
+    pushNewComment = (comment) => {
+        console.log(this.state);
+        let comments = [...this.state.comments];
+        comments.push({
+            name: "yo",
+            message: comment,
+            imageUrl: "https://bulma.io/images/placeholders/128x128.png"
+        });
+        this.setState({comments})
+    };
 
-    }
+    removeComment = (comment) => {
+
+    };
 
     render() {
         const {name, message, imageUrl, comments} = this.state;
@@ -60,18 +65,18 @@ class Thread extends Component {
                                 <br/>{message}<br/>
                             </p>
                         </div>
-                        {comments.map(comment => this.renderComment(comment))}
+                        {comments.map((comment, index) => this.renderComment(comment, index))}
                     </div>
                 </article>
-                <CreateComment />
+                <CreateComment action={this.pushNewComment}/>
             </Fragment>
         );
     }
 
-    renderComment(comment) {
+    renderComment = (comment, index) => {
         const {name, message, imageUrl} = comment;
         return (
-            <Comment name={name} message={message} imageUrl={imageUrl}/>
+            <Comment key={index} name={name} message={message} imageUrl={imageUrl} action={this.removeComment}/>
         )
     }
 }
