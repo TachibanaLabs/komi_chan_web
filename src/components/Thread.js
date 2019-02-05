@@ -12,23 +12,14 @@ class Thread extends Component {
     };
 
     componentDidMount() {
+        const {id, message} = this.props;
+
         this.setState(
             {
-                name: "Juanito",
-                message: "Memes",
+                name: id,
+                message: message,
                 imageUrl: "https://bulma.io/images/placeholders/128x128.png",
-                comments: [
-                    {
-                        name: "Juanito",
-                        message: "Memes1",
-                        imageUrl: "https://bulma.io/images/placeholders/128x128.png"
-                    },
-                    {
-                        name: "Juanito",
-                        message: "Memes2",
-                        imageUrl: "https://bulma.io/images/placeholders/128x128.png"
-                    }
-                ]
+                comments: []
             }
         )
     }
